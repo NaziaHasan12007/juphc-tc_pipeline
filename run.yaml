@@ -1,0 +1,21 @@
+apiVersion: tekton.dev/v1beta1
+kind: PipelineRun
+metadata:
+  generateName: juphc-tc-pipeline-run-
+spec:
+  pipelineRef:
+    name: juphc-tc-pipeline
+  params:
+    - name: repo-url
+      value: https://github.com/NaziaHasan12007/zntwk-tax_calculator.git
+    - name: branch
+      value: main
+    - name: build-image
+      value: us.icr.io/sn-labs-naziahasan01/tax-calculator
+  workspaces:
+    - name: pipeline-workspace
+      persistentVolumeClaim:
+        claimName: juphc-tc-pvc
+    - name: dockerconfig-ws
+      secret:
+        secretName: icr-secret
